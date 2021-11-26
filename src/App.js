@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
 import {Container, Row, Col} from 'react-bootstrap'
-import Home from './components/Home';
-import ListOfCodes from './components/ListOfCodes';
+import EditCode from './components/EditCode';
+import AddCode from './components/AddCode';
 
 class App extends Component {
   render() {
@@ -10,14 +10,15 @@ class App extends Component {
 			<div className="App">
         <Container>
           <Row>
-            <Col> 
-              <Home/>
+            <Col xs={8}> 
+               <EditCode/>
             </Col>
-            <Col xs={6}>
-              <ListOfCodes/>
+            <Col xs={4}>
+                <AddCode/>
             </Col>
           </Row>
         </Container>
+
 			</div>
 		)
 	}

@@ -42,5 +42,16 @@
   margin: 1.5rem 0;
   border-radius: 0.25rem;
   border: 1px solid #ced4da;
-  text-align: right;
+
 }
+.my-custom-scrollbar {
+  position: relative;
+  height: 300px;
+  overflow:auto;
+  float: left;
+
+}
+
+
+
+
