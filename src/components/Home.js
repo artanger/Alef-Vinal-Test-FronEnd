@@ -36,32 +36,37 @@ class Home extends Component {
 	render() {
 		const { name, value } = this.state
 		return (
-			<div>
-                
+			<div class="bd-example">
                 <h1>Add Codes:</h1>
 				<form onSubmit={this.submitHandler}>
-					<div>
-						<input
-							type="text"
-							name="value"
-                            maxLength="3"
-							value={value}
-							onChange={this.changeHandler}
-						/>
+					<div class="row mb-3"> 
+						<label for="value" class="col-sm-2 col-form-label">Value</label>
+						<div class="col-sm-10">
+							<input
+								type="text"
+								name="value"
+								maxLength="3"
+								class="form-control"
+								value={value}
+								onChange={this.changeHandler}
+							/>
+						</div>
 					</div>
-					<div>
-						<input
-							type="text"
-							name="name"
-							value={name}
-							onChange={this.changeHandler}
-						/>
+					<div class="row mb-3">
+						<label for="name" class="col-sm-2 col-form-label">Name</label>
+						<div class="col-sm-10">
+							<input
+								type="text"
+								name="name"
+								class="form-control"
+								value={name}
+								onChange={this.changeHandler}
+							/>
+						</div>
 					</div>
-					
-					<button type="submit">Add</button>
+					<button type="submit" class="btn btn-primary">Add</button>
 				</form>
 			</div>
-            
 		)
 	}
 }
