@@ -8,7 +8,8 @@ class EditCode extends Component {
             codes: [],
             id: '',
             value: '',
-            name: ''
+            name: '',
+            errorMessageList: ''
 		}
     }
 
@@ -18,7 +19,7 @@ class EditCode extends Component {
             this.setState({codes:response.data});
         })
         .catch(error => {
-            alert(error.message);
+            this.setState({errorMessageList:error.message});
             console.log(error.message);
         });
     }
@@ -62,25 +63,27 @@ class EditCode extends Component {
     }
 
     render() {
-        const{codes, id, value, name} = this.state;
+        const{codes, id, value, name, errorMessageList} = this.state;
+
         return (
             <>
-            <div class="row">
-                <div class="bd-example col-md-6">
+            <div className="row">
+                <div className="bd-example col-md-6">
                     <h1>Edit Codes:</h1>
                     <form onSubmit={this.submitHandler}>
-                        <div class="row mb-3">
+                        <div className="row mb-3">
                             <input
-                                class="form-control"
+                                className="form-control"
                                 type="text"
                                 name="id"
+                                readOnly
                                 value={id}
                                 onChange={this.changeHandler}
                             />
                         </div>
-                        <div class="row mb-3">
+                        <div className="row mb-3">
                             <input
-                                class="form-control"
+                                className="form-control"
                                 type="text"
                                 name="value"
                                 maxLength="3"
@@ -88,40 +91,43 @@ class EditCode extends Component {
                                 onChange={this.changeHandler}
                             />
                         </div>
-                        <div class="row mb-3">
+                        <div className="row mb-3">
                             <input
-                                class="form-control"
+                                className="form-control"
                                 type="text"
                                 name="name"
+                                max-length="50"
                                 value={name}
                                 onChange={this.changeHandler}
                             />
                         </div>
-                        <button type="submit" class="btn btn-success">Change</button>
+                        <button type="submit" 
+                        className={value !== '' || name !== '' ? 'btn btn-success' : 'btn btn-success disabled'}
+                        >Change</button>
                     </form>
 
                 </div>
-                <div class="bd-example col-md-6 ">
-                    <table class="table table-striped table-hover ">
-                        <thead>
-                            <tr>    
-                                <th scope="col">Values</th>
-                                <th scope="col">Name</th>
-                            </tr>
-                        </thead>
-                        <tbody class=" my-custom-scrollbar" >
-                            {codes.map(code =>
-                                <tr class="" key={code.id} onClick={()=>{this.handleClick(code)}} >
-                                    <td>{code.value}</td>
-                                    <td>{code.name}</td>                                 
+                <div className="bd-example col-md-6">
+                    <div className="table-fix-head">
+                        <table className="table table-striped table-hover">
+                            <thead>
+                                <tr>    
+                                    <th scope="col">Values</th>
+                                    <th scope="col">Name</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                {codes.map(code =>
+                                    <tr key={code.id} onClick={()=>{this.handleClick(code)}} >
+                                        <td>{code.value}</td>
+                                        <td>{code.name}</td>                                 
+                                    </tr>
                                 )}
-                        </tbody>
-                    </table> 
-
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style={errorMessageList !== '' ? {} : { display: 'none' }} className="alert alert-danger" role="alert">{errorMessageList}</div>
                 </div>
-              
-               
             </div>
             
             </>

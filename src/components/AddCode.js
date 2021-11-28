@@ -6,12 +6,14 @@ class AddCode extends Component {
 
 		this.state = {
             value: '',
-			name: ''	
+			name: '',
+			hasError: false,
+			errorList: []
 		}
 	}
 
 	changeHandler = (e) => {
-		this.setState({ [e.target.name]: e.target.value })
+		this.setState({ [e.target.name]: e.target.value, hasError: false })
 	}
 
 	submitHandler = (e) => {
@@ -29,43 +31,61 @@ class AddCode extends Component {
                 console.log(response);
             })
             .catch(error => {
-                console.log(error)
+				var errList = [];
+				Object.getOwnPropertyNames(error.response.data.errors)
+					.forEach(function (val, index, list) {
+						var currentElemErrors = error.response.data.errors[val];
+						for (let i = 0; i < currentElemErrors.length; i++) {
+							errList.push(currentElemErrors[i]);
+						  }
+					})
+				if(errList.length > 0){
+					this.setState({ hasError: true, errorList: errList });
+				}
+				console.log(errList);
             });
 	}
 
 	render() {
-		const { name, value } = this.state
+		const { name, value, hasError, errorList } = this.state
 		return (
-			<div class="bd-example">
+			<div className="bd-example">
                 <h1>Add Codes:</h1>
 				<form onSubmit={this.submitHandler}>
-					<div class="row mb-3"> 
-						<label for="value" class="col-sm-2 col-form-label">Value</label>
-						<div class="col-sm-10">
+					<div className="row mb-3"> 
+						<label htmlFor="value" className="col-sm-2 col-form-label">Value</label>
+						<div className="col-sm-10">
 							<input
 								type="text"
 								name="value"
 								maxLength="3"
-								class="form-control"
+								className="form-control"
 								value={value}
 								onChange={this.changeHandler}
 							/>
 						</div>
 					</div>
-					<div class="row mb-3">
-						<label for="name" class="col-sm-2 col-form-label">Name</label>
-						<div class="col-sm-10">
+					<div className="row mb-3">
+						<label htmlFor="name" className="col-sm-2 col-form-label">Name</label>
+						<div className="col-sm-10">
 							<input
 								type="text"
 								name="name"
-								class="form-control"
+								max-length="50"
+								className="form-control"
 								value={name}
 								onChange={this.changeHandler}
 							/>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-primary">Add</button>
+					<button type="submit" 
+					className={value !== '' && name !== '' ? 'btn btn-primary' : 'btn btn-primary disabled'}
+					>Add</button>
 				</form>
+				<br/>
+				<div style={hasError ? {} : { display: 'none' }} className="alert alert-danger" role="alert">
+					<ul>{errorList.map((errorListMessage, index) =>	<li key={index}>{errorListMessage}</li>)}</ul>
+				</div>
 			</div>
 		)
 	}

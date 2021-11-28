@@ -44,14 +44,16 @@
   border: 1px solid #ced4da;
 
 }
-.my-custom-scrollbar {
-  position: relative;
-  height: 300px;
-  overflow:auto;
-  float: left;
-
+.table-fix-head {
+  overflow: auto; 
+  max-height: 300px; 
 }
-
-
-
-
+.table-fix-head thead {
+  position: sticky; 
+  top: 0; 
+  z-index: 1;
+  background-color: white;
+}
+.table-fix-head tbody tr td:hover {
+  cursor: pointer;
+}
