@@ -33,7 +33,7 @@ class AddCode extends Component {
             .catch(error => {
 				var errList = [];
 				Object.getOwnPropertyNames(error.response.data.errors)
-					.forEach(function (val, index, list) {
+					.forEach(function (val) {
 						var currentElemErrors = error.response.data.errors[val];
 						for (let i = 0; i < currentElemErrors.length; i++) {
 							errList.push(currentElemErrors[i]);
@@ -78,9 +78,9 @@ class AddCode extends Component {
 							/>
 						</div>
 					</div>
-					<button type="submit" 
-					className={value !== '' && name !== '' ? 'btn btn-primary' : 'btn btn-primary disabled'}
-					>Add</button>
+					<button type="submit" className={value !== '' && name !== '' ? 'btn btn-primary' : 'btn btn-primary disabled'}>
+						Add
+					</button>
 				</form>
 				<br/>
 				<div style={hasError ? {} : { display: 'none' }} className="alert alert-danger" role="alert">
