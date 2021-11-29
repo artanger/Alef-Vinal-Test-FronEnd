@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+
 class EditCode extends Component {
     constructor(props) {
         super(props)
@@ -13,6 +14,8 @@ class EditCode extends Component {
             hasError: false,
             errorList: []
 		}
+
+        this.getAllCodes = this.getAllCodes.bind(this);
     }
 
     getAllCodes(){
@@ -154,7 +157,7 @@ class EditCode extends Component {
                             </tbody>
                         </table>
                     </div>
-                   
+                    <button id="btnRefresh" onClick={this.getAllCodes} style={{display: 'none'}}>refresh list</button>
                 </div>
             </div>
             

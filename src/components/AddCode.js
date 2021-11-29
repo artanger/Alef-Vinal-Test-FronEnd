@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import axios from 'axios'
+
 class AddCode extends Component {
 	constructor(props) {
 		super(props)
@@ -28,7 +29,10 @@ class AddCode extends Component {
             })
             .then(response => {
                 this.setState({ name: '', value: '' });
-                console.log(response);
+				console.log(response);
+				
+				var btnRefresh = document.getElementById('btnRefresh');
+				btnRefresh.click();
             })
             .catch(error => {
 				var errList = [];
